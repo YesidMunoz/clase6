@@ -25,6 +25,13 @@ class Medicamento:
         
 class Mascota:
     
+    def eliminarMedicamento(self, nombre_medicamento):
+        for medicamento in self.__lista_medicamentos:
+            if medicamento.verNombre() == nombre_medicamento:
+                self.__lista_medicamentos.remove(medicamento)
+                return True 
+        return False  
+    
     def __init__(self):
         self.__nombre= " "
         self.__historia=0
@@ -119,7 +126,8 @@ def main():
                        \n3- Ver número de mascotas en el servicio 
                        \n4- Ver medicamentos que se están administrando
                        \n5- Eliminar mascota 
-                       \n6- Salir 
+                       \n6- Salir
+                       \n7- Eliminar medicamento de una mascota 
                        \nUsted ingresó la opción: ''' ))
         if menu==1: # Ingresar una mascota 
             if servicio_hospitalario.verNumeroMascotas() >= 10:
@@ -143,7 +151,7 @@ def main():
                     for medicamento_existente in lista_med:
                         if medicamento_existente.verNombre() == nombre_medicamentos:
                             nombre_ya_existe = True
-                            break
+                            break 
 
                     if nombre_ya_existe:
                         print("Ya existe un medicamento con ese nombre. Ingrese un medicamento diferente.")
@@ -205,6 +213,29 @@ def main():
             print("Usted ha salido del sistema de servicio de hospitalización...")
             break
         
+        elif menu == 7: 
+            q = int(input("Ingrese la historia clínica de la mascota: "))
+            lista_medicamentos = servicio_hospitalario.verMedicamento(q)
+            
+            if lista_medicamentos:  
+                print("Los medicamentos suministrados son: ")
+                for m in lista_medicamentos:
+                    print(m.verNombre())
+
+                nombre_medicamento = input("Ingrese el nombre del medicamento que desea eliminar: ")
+                
+                encontrado = False
+                for medicamento in lista_medicamentos:
+                    if medicamento.verNombre() == nombre_medicamento:
+                        lista_medicamentos.remove(medicamento)
+                        print("El medicamento ha sido eliminado correctamente.")
+                        encontrado = True
+                        break
+                
+                if encontrado == False:
+                    print("El medicamento no se encontró en la lista.")
+            else:
+                print("La historia clínica ingresada no corresponde con ninguna mascota en el sistema.")
         else:
             print("Usted ingresó una opción no válida, intentelo nuevamente...")
 
