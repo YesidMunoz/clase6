@@ -1,3 +1,13 @@
+from datetime import datetime
+def pedir_fecha(mensaje):
+    while True:
+        fecha_input = input(mensaje)
+        try:            
+            fecha = datetime.strptime(fecha_input, "%d/%m/%Y")
+            return fecha_input  
+        except ValueError:
+            print("Error: El formato debe ser dd/mm/aaaa. Intente de nuevo.")
+
 class Medicamento:
     def __init__(self):
         self.__nombre = "" 
@@ -97,6 +107,7 @@ class sistemaV:
             del self.__felinos[historia]
             return True
         return False
+    
 
 def main():
     servicio_hospitalario = sistemaV()
@@ -120,7 +131,7 @@ def main():
                 nombre=input("Ingrese el nombre de la mascota: ")
                 tipo=input("Ingrese el tipo de mascota (felino o canino): ")
                 peso=int(input("Ingrese el peso de la mascota: "))
-                fecha=input("Ingrese la fecha de ingreso (dia/mes/año): ")
+                fecha = pedir_fecha("Ingrese la fecha de ingreso (dd/mm/aaaa): ")
                 nm=int(input("Ingrese cantidad de medicamentos: "))
                 lista_med=[]
 
