@@ -114,13 +114,27 @@ def main():
                 nm=int(input("Ingrese cantidad de medicamentos: "))
                 lista_med=[]
 
-                for i in range(0,nm):
+                contador = 0
+                while contador < nm:
                     nombre_medicamentos = input("Ingrese el nombre del medicamento: ")
-                    dosis =int(input("Ingrese la dosis: "))
+                    
+                    nombre_ya_existe = False
+                    for medicamento_existente in lista_med:
+                        if medicamento_existente.verNombre() == nombre_medicamentos:
+                            nombre_ya_existe = True
+                            break
+
+                    if nombre_ya_existe:
+                        print("Ya existe un medicamento con ese nombre. Ingrese un medicamento diferente.")
+                        continue
+
+                    dosis = int(input("Ingrese la dosis: "))
                     medicamento = Medicamento()
                     medicamento.asignarNombre(nombre_medicamentos)
                     medicamento.asignarDosis(dosis)
                     lista_med.append(medicamento)
+                    
+                    contador += 1
 
                 mas= Mascota()
                 mas.asignarNombre(nombre)
